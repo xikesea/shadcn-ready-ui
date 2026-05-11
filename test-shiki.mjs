@@ -1,6 +1,10 @@
 import { createHighlighter } from "shiki";
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 async function test() {
   try {
@@ -19,7 +23,6 @@ async function test() {
     });
     
     console.log("SUCCESS");
-    // console.log(html);
   } catch (error) {
     console.error("SHIKI_FAILED");
     console.error(error);

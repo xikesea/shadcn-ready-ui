@@ -13,7 +13,10 @@ import { Separator } from "@/components/ui/separator";
 const categories = [
   { id: "table", label: "Tables" },
   { id: "form", label: "Forms" },
-  { id: "other", label: "Auth Forms" },
+  { id: "other", label: "Auth" },
+  { id: "import", label: "Import" },
+  { id: "file-manager", label: "File Manager" },
+  { id: "acl", label: "ACL Tree" },
 ];
 
 function HeaderNav() {
