@@ -36,7 +36,7 @@ import { toast } from "sonner";
 
 interface TreeNodeProps {
   node: PermissionNode;
-  selectedActions: string[];
+  permissions: Record<string, string[]>;
   onActionToggle: (nodeId: string, action: string) => void;
   onNodeToggle: (node: PermissionNode, checked: boolean) => void;
   depth?: number;
@@ -44,7 +44,7 @@ interface TreeNodeProps {
 
 const PermissionTreeNode = ({ 
   node, 
-  selectedActions, 
+  permissions, 
   onActionToggle, 
   onNodeToggle, 
   depth = 0 
@@ -52,12 +52,14 @@ const PermissionTreeNode = ({
   const [isOpen, setIsOpen] = useState(true);
   
   const hasChildren = node.children && node.children.length > 0;
+  const selectedActions = permissions[node.id] || [];
   
   // Calculate indeterminate state for folders
   const getFolderSelectionStatus = (n: PermissionNode): "checked" | "unchecked" | "indeterminate" => {
     if (n.actions) {
-      const allSelected = n.actions.every(a => selectedActions.includes(a));
-      const someSelected = n.actions.some(a => selectedActions.includes(a));
+      const nodeActions = permissions[n.id] || [];
+      const allSelected = n.actions.every(a => nodeActions.includes(a));
+      const someSelected = n.actions.some(a => nodeActions.includes(a));
       if (allSelected) return "checked";
       if (someSelected) return "indeterminate";
       return "unchecked";
@@ -106,9 +108,11 @@ const PermissionTreeNode = ({
           {node.description && (
             <TooltipProvider>
               <Tooltip>
-                <TooltipTrigger asChild>
-                  <Info className="h-3.5 w-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
-                </TooltipTrigger>
+                <TooltipTrigger
+                  render={
+                    <Info className="h-3.5 w-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                  }
+                />
                 <TooltipContent>
                   <p className="text-xs">{node.description}</p>
                 </TooltipContent>
@@ -144,7 +148,7 @@ const PermissionTreeNode = ({
             <PermissionTreeNode 
               key={child.id}
               node={child}
-              selectedActions={selectedActions}
+              permissions={permissions}
               onActionToggle={onActionToggle}
               onNodeToggle={onNodeToggle}
               depth={depth + 1}
@@ -183,39 +187,32 @@ export default function ACLManagerDemo() {
   }, [selectedRoleId]);
 
   const handleNodeToggle = useCallback((node: PermissionNode, checked: boolean) => {
-    const getAllNodeIds = (n: PermissionNode): string[] => {
-      let ids = [n.id];
-      if (n.children) {
-        n.children.forEach(c => { ids = [...ids, ...getAllNodeIds(c)]; });
+    // Helper to get all descendant node IDs and their actions
+    const getNodesWithActions = (n: PermissionNode): { id: string, actions: string[] }[] => {
+      let result: { id: string, actions: string[] }[] = [];
+      if (n.actions) {
+        result.push({ id: n.id, actions: n.actions });
       }
-      return ids;
+      if (n.children) {
+        n.children.forEach(c => {
+          result = [...result, ...getNodesWithActions(c)];
+        });
+      }
+      return result;
     };
 
-    const targetNodeIds = getAllNodeIds(node);
+    const nodesToUpdate = getNodesWithActions(node);
 
     setRoles(prev => prev.map(r => {
       if (r.id !== selectedRoleId) return r;
       
       const newPermissions = { ...r.permissions };
       
-      targetNodeIds.forEach(id => {
-        // Find the full node object to get its actions
-        const findNode = (nodes: PermissionNode[]): PermissionNode | undefined => {
-          for (const n of nodes) {
-            if (n.id === id) return n;
-            if (n.children) {
-              const found = findNode(n.children);
-              if (found) return found;
-            }
-          }
-        };
-        
-        const nodeObj = findNode(permissionSchema);
-        if (nodeObj?.actions) {
-          newPermissions[id] = checked ? [...nodeObj.actions] : [];
+      nodesToUpdate.forEach(n => {
+        if (checked) {
+          newPermissions[n.id] = [...n.actions];
         } else {
-          // It's a folder, we just clear its specific entry if it exists
-          if (!checked) delete newPermissions[id];
+          delete newPermissions[n.id];
         }
       });
       
@@ -335,7 +332,7 @@ export default function ACLManagerDemo() {
                      <PermissionTreeNode 
                         key={node.id}
                         node={node}
-                        selectedActions={activeRole.permissions[node.id] || []}
+                        permissions={activeRole.permissions}
                         onActionToggle={handleActionToggle}
                         onNodeToggle={handleNodeToggle}
                      />

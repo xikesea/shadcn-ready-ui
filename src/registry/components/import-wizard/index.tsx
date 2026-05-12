@@ -364,11 +364,13 @@ export function BulkImportDemo() {
              {step === 2 && (
                <TooltipProvider>
                   <Tooltip>
-                    <TooltipTrigger asChild>
-                       <Button variant="ghost" size="icon" className="text-muted-foreground">
+                    <TooltipTrigger
+                      render={
+                        <Button variant="ghost" size="icon" className="text-muted-foreground">
                           <HelpCircle className="h-4 w-4" />
-                       </Button>
-                    </TooltipTrigger>
+                        </Button>
+                      }
+                    />
                     <TooltipContent className="max-w-xs">
                        <p>Auto-mapping matches CSV headers that sound like our field names. Manual adjustments can be made below.</p>
                     </TooltipContent>
