@@ -62,7 +62,7 @@ function MobileNav() {
             <div className="bg-primary text-primary-foreground p-1 rounded">
                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
             </div>
-            <span className="text-xl font-bold tracking-tighter">Shadcn Ready UI</span>
+            <span className="text-xl font-bold tracking-tighter">shadcn/ready</span>
           </SheetTitle>
         </SheetHeader>
         <div className="flex-1 overflow-auto py-6">
@@ -119,7 +119,7 @@ export function Header() {
             <MobileNav />
           </Suspense>
           <Link href="/" className="text-xl font-bold tracking-tighter">
-            Shadcn Ready UI
+            shadcn/ready
           </Link>
         </div>
         
