@@ -16,7 +16,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "shadcn/kit - Premium shadcn/ui components",
+  title: "Shadcn Ready UI - Premium shadcn/ui components",
   description: "Highly customized and responsive components based on shadcn/ui.",
 };
 

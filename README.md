@@ -1,10 +1,10 @@
-# shadcn/kit
+# Shadcn Ready UI
 
 Production-ready UI components built on top of [shadcn/ui](https://ui.shadcn.com) and [Base UI](https://base-ui.com), designed for real-world applications.
 
 ## Overview
 
-shadcn/kit is a component showcase providing highly customized, complex UI patterns that go beyond the standard shadcn/ui primitives. Each component is interactive, fully responsive, and ready to copy into your project.
+Shadcn Ready UI is a component showcase providing highly customized, complex UI patterns that go beyond the standard shadcn/ui primitives. Each component is interactive, fully responsive, and ready to copy into your project.
 
 ## Components
 

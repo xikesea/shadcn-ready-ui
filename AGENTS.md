@@ -1,4 +1,4 @@
-# shadcn/kit — AI Agent Rules
+# Shadcn Ready UI — AI Agent Rules
 
 ## Framework Warning
 

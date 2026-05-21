@@ -50,7 +50,7 @@ export default async function Home(props: { searchParams: Promise<{ category?: s
           {/* Right diagonal leg */}
           <line x1="928" y1="0" x2="1000" y2="24" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" />
         </svg>
-        © {new Date().getFullYear()} shadcn/kit.
+        © {new Date().getFullYear()} Shadcn Ready UI.
       </footer>
     </div>
   );

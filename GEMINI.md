@@ -1,10 +1,10 @@
-# Project: shadcn/kit
+# Project: Shadcn Ready UI
 
 Reference document for AI assistants working on this project.
 
 ## Overview
 
-**shadcn/kit** is a Next.js 16.2.6 (App Router, Turbopack) project providing production-ready, highly customized UI components built on top of shadcn/ui and Base UI. Each component is interactive, fully responsive, and copy-paste ready.
+**Shadcn Ready UI** is a Next.js 16.2.6 (App Router, Turbopack) project providing production-ready, highly customized UI components built on top of shadcn/ui and Base UI. Each component is interactive, fully responsive, and copy-paste ready.
 
 ## Tech Stack
 
