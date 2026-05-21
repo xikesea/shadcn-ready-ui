@@ -2,7 +2,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal, ArrowUpDown, Pencil, Trash2 } from "lucide-react";
+import { MoreHorizontal, ArrowUpDown, Pencil, Trash2, ImageIcon } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,6 +16,7 @@ import {
 export type Product = {
   id: string;
   name: string;
+  image?: string;
   category: string;
   status: "Active" | "Draft" | "Archived";
   price: number;
@@ -45,6 +46,22 @@ export const columns: ColumnDef<Product>[] = [
     ),
     enableSorting: false,
     enableHiding: false,
+  },
+  {
+    id: "image",
+    enableSorting: false,
+    enableHiding: false,
+    cell: ({ row }) => {
+      const product = row.original;
+      return product.image ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={product.image} alt={product.name} className="w-10 h-10 rounded-md object-cover bg-muted" />
+      ) : (
+        <div className="w-10 h-10 rounded-md bg-muted flex items-center justify-center">
+          <ImageIcon className="w-4 h-4 text-muted-foreground" />
+        </div>
+      );
+    },
   },
   {
     accessorKey: "name",

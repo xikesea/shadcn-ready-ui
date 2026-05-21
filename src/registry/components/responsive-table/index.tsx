@@ -31,26 +31,26 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { toast } from "sonner";
 
 const initialData: Product[] = [
-  { id: "PROD-001", name: "Premium UI Kit", category: "Design", status: "Active", price: 49.0, sales: 120 },
-  { id: "PROD-002", name: "SaaS Dashboard Template", category: "Templates", status: "Active", price: 79.0, sales: 85 },
-  { id: "PROD-003", name: "Figma Icon Set", category: "Design", status: "Draft", price: 19.0, sales: 0 },
-  { id: "PROD-004", name: "Next.js Boilerplate", category: "Code", status: "Active", price: 149.0, sales: 340 },
-  { id: "PROD-005", name: "React Native App Theme", category: "Code", status: "Archived", price: 99.0, sales: 42 },
-  { id: "PROD-006", name: "3D Illustration Pack", category: "Design", status: "Active", price: 29.0, sales: 210 },
-  { id: "PROD-007", name: "Admin Panel React", category: "Templates", status: "Draft", price: 59.0, sales: 0 },
-  { id: "PROD-008", name: "Marketing Landing Page", category: "Templates", status: "Active", price: 39.0, sales: 450 },
-  { id: "PROD-009", name: "Node.js API Starter", category: "Code", status: "Active", price: 69.0, sales: 110 },
-  { id: "PROD-010", name: "Wireframe Kit Pro", category: "Design", status: "Archived", price: 24.0, sales: 88 },
-  { id: "PROD-011", name: "E-commerce React Store", category: "Code", status: "Draft", price: 199.0, sales: 0 },
-  { id: "PROD-012", name: "Social Media Graphics", category: "Design", status: "Active", price: 15.0, sales: 530 },
-  { id: "PROD-013", name: "Portfolio Template", category: "Templates", status: "Active", price: 45.0, sales: 125 },
-  { id: "PROD-014", name: "Tailwind CSS Components", category: "Code", status: "Active", price: 89.0, sales: 280 },
-  { id: "PROD-015", name: "Podcast App UI", category: "Design", status: "Draft", price: 35.0, sales: 0 },
-  { id: "PROD-016", name: "CRM Admin Dashboard", category: "Templates", status: "Active", price: 129.0, sales: 95 },
-  { id: "PROD-017", name: "Vue 3 Component Library", category: "Code", status: "Archived", price: 55.0, sales: 34 },
-  { id: "PROD-018", name: "Logo Design Pack", category: "Design", status: "Active", price: 49.0, sales: 410 },
-  { id: "PROD-019", name: "Blog Starter Kit", category: "Templates", status: "Active", price: 29.0, sales: 175 },
-  { id: "PROD-020", name: "GraphQL API Boilerplate", category: "Code", status: "Active", price: 75.0, sales: 60 },
+  { id: "PROD-001", name: "Premium UI Kit", image: "https://picsum.photos/seed/uikit/300/200", category: "Design", status: "Active", price: 49.0, sales: 120 },
+  { id: "PROD-002", name: "SaaS Dashboard Template", image: "https://picsum.photos/seed/dashboard/300/200", category: "Templates", status: "Active", price: 79.0, sales: 85 },
+  { id: "PROD-003", name: "Figma Icon Set", image: "https://picsum.photos/seed/icons/300/200", category: "Design", status: "Draft", price: 19.0, sales: 0 },
+  { id: "PROD-004", name: "Next.js Boilerplate", image: "https://picsum.photos/seed/nextjs/300/200", category: "Code", status: "Active", price: 149.0, sales: 340 },
+  { id: "PROD-005", name: "React Native App Theme", image: "https://picsum.photos/seed/mobile/300/200", category: "Code", status: "Archived", price: 99.0, sales: 42 },
+  { id: "PROD-006", name: "3D Illustration Pack", image: "https://picsum.photos/seed/3dillust/300/200", category: "Design", status: "Active", price: 29.0, sales: 210 },
+  { id: "PROD-007", name: "Admin Panel React", image: "https://picsum.photos/seed/adminpanel/300/200", category: "Templates", status: "Draft", price: 59.0, sales: 0 },
+  { id: "PROD-008", name: "Marketing Landing Page", image: "https://picsum.photos/seed/marketing/300/200", category: "Templates", status: "Active", price: 39.0, sales: 450 },
+  { id: "PROD-009", name: "Node.js API Starter", image: "https://picsum.photos/seed/nodejs/300/200", category: "Code", status: "Active", price: 69.0, sales: 110 },
+  { id: "PROD-010", name: "Wireframe Kit Pro", image: "https://picsum.photos/seed/wireframe/300/200", category: "Design", status: "Archived", price: 24.0, sales: 88 },
+  { id: "PROD-011", name: "E-commerce React Store", image: "https://picsum.photos/seed/ecommerce/300/200", category: "Code", status: "Draft", price: 199.0, sales: 0 },
+  { id: "PROD-012", name: "Social Media Graphics", image: "https://picsum.photos/seed/socialmedia/300/200", category: "Design", status: "Active", price: 15.0, sales: 530 },
+  { id: "PROD-013", name: "Portfolio Template", image: "https://picsum.photos/seed/portfolio/300/200", category: "Templates", status: "Active", price: 45.0, sales: 125 },
+  { id: "PROD-014", name: "Tailwind CSS Components", image: "https://picsum.photos/seed/tailwind/300/200", category: "Code", status: "Active", price: 89.0, sales: 280 },
+  { id: "PROD-015", name: "Podcast App UI", image: "https://picsum.photos/seed/podcast/300/200", category: "Design", status: "Draft", price: 35.0, sales: 0 },
+  { id: "PROD-016", name: "CRM Admin Dashboard", image: "https://picsum.photos/seed/crm/300/200", category: "Templates", status: "Active", price: 129.0, sales: 95 },
+  { id: "PROD-017", name: "Vue 3 Component Library", image: "https://picsum.photos/seed/vue3/300/200", category: "Code", status: "Archived", price: 55.0, sales: 34 },
+  { id: "PROD-018", name: "Logo Design Pack", image: "https://picsum.photos/seed/logodesign/300/200", category: "Design", status: "Active", price: 49.0, sales: 410 },
+  { id: "PROD-019", name: "Blog Starter Kit", image: "https://picsum.photos/seed/blogkit/300/200", category: "Templates", status: "Active", price: 29.0, sales: 175 },
+  { id: "PROD-020", name: "GraphQL API Boilerplate", image: "https://picsum.photos/seed/graphql/300/200", category: "Code", status: "Active", price: 75.0, sales: 60 },
 ];
 
 export default function AdvancedTableDemo() {
@@ -65,6 +65,7 @@ export default function AdvancedTableDemo() {
   // Form State
   const [formData, setFormData] = useState<Partial<Product>>({
     name: "",
+    image: "",
     category: "",
     status: "Active",
     price: 0,
@@ -88,7 +89,7 @@ export default function AdvancedTableDemo() {
     }
     setIsDialogOpen(false);
     setEditingProduct(null);
-    setFormData({ name: "", category: "", status: "Active", price: 0, sales: 0 });
+    setFormData({ name: "", image: "", category: "", status: "Active", price: 0, sales: 0 });
   };
 
   const handleEdit = (product: Product) => {
@@ -171,7 +172,7 @@ export default function AdvancedTableDemo() {
             render={
               <Button onClick={() => {
                 setEditingProduct(null);
-                setFormData({ name: "", category: "", status: "Active", price: 0, sales: 0 });
+                setFormData({ name: "", image: "", category: "", status: "Active", price: 0, sales: 0 });
               }}>
                 <Plus className="w-4 h-4 mr-2" />
                 Add Product
@@ -193,6 +194,21 @@ export default function AdvancedTableDemo() {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="image">Image URL</Label>
+                <div className="flex gap-2 items-center">
+                  <Input
+                    id="image"
+                    placeholder="https://..."
+                    value={formData.image ?? ""}
+                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                  />
+                  {formData.image && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={formData.image} alt="preview" className="w-10 h-10 rounded-md object-cover bg-muted flex-none" />
+                  )}
+                </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="grid gap-2">
