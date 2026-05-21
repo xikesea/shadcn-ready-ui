@@ -2,10 +2,10 @@
 
 This document serves as a handover and reference for the current state of the project.
 
-## 🚀 Overview
+## Overview
 **shadcn/kit** is a Next.js 15+ (Turbopack) project designed to provide highly customized, production-ready components built on top of `shadcn/ui` and `Base UI`.
 
-## 🛠 Tech Stack
+## Tech Stack
 - **Framework**: Next.js 15 (App Router, Turbopack)
 - **Styling**: Tailwind CSS 4
 - **UI Components**: shadcn/ui (radix-ui / base-ui)
@@ -15,7 +15,7 @@ This document serves as a handover and reference for the current state of the pr
 - **Highlighter**: Shiki
 - **Icons**: Lucide React + Inline SVGs
 
-## ✨ Implemented Features
+## Implemented Features
 
 ### 1. Complex UI Components (Premium Kit)
 - **File Manager / Media Library**: 
@@ -56,7 +56,7 @@ This document serves as a handover and reference for the current state of the pr
 - **Mobile Menu**: Polished Sidebar (Sheet) with Brand logo and organized categories.
 - **Theme Support**: Full Dark/Light/System mode integration via `next-themes`.
 
-## 🔧 Critical Fixes & Technical Context
+## Critical Fixes & Technical Context
 - **React 19 / Next 15 Compatibility**: 
   - Using `render` prop for `SheetTrigger`, `DialogTrigger`, and `DropdownMenuTrigger` to comply with Base UI requirements instead of `asChild`.
   - Added `suppressHydrationWarning` to `html` and `body` tags in `layout.tsx`.
@@ -65,7 +65,7 @@ This document serves as a handover and reference for the current state of the pr
   - **Language Fallback**: Added a mechanism to try `tsx` if `typescript` highlighting fails, resolving complex regex errors.
   - **Registry Mapping**: Standardized file definitions to use `tsx` for better Shiki compatibility.
 
-## 📋 Potential Next Steps
+## Potential Next Steps
 1. **Dashboard Shell**: Create a complete administrative layout using existing Sidebar components.
 2. **Real SSR Implementation**: Transition the Data Table to use URL Search Params and Server Actions.
 3. **Advanced Query Builder**: Implement a Notion-like query builder with nested AND/OR logic.
