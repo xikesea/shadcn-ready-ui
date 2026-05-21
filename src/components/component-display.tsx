@@ -3,12 +3,13 @@
 import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { FileCode, PlayCircle } from "lucide-react";
+import { FileCode, PlayCircle, Copy, Check } from "lucide-react";
 
 interface FileWithHtml {
   name: string;
   language: string;
   highlightedHtml: string;
+  content: string;
 }
 
 interface ComponentDisplayProps {
@@ -23,8 +24,17 @@ interface ComponentDisplayProps {
 
 export function ComponentDisplay({ component }: ComponentDisplayProps) {
   const [activeFile, setActiveFile] = useState(component.files[0]?.name);
+  const [copied, setCopied] = useState(false);
 
-  const activeFileContent = component.files.find((f) => f.name === activeFile)?.highlightedHtml;
+  const activeEntry = component.files.find((f) => f.name === activeFile);
+
+  const handleCopy = () => {
+    if (!activeEntry?.content) return;
+    navigator.clipboard.writeText(activeEntry.content).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
 
   return (
     <div className="w-full max-w-6xl mx-auto py-10 px-4 space-y-6">
@@ -57,7 +67,7 @@ export function ComponentDisplay({ component }: ComponentDisplayProps) {
                   {component.files.map((file) => (
                     <button
                       key={file.name}
-                      onClick={() => setActiveFile(file.name)}
+                      onClick={() => { setActiveFile(file.name); setCopied(false); }}
                       className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
                         activeFile === file.name
                           ? "bg-zinc-800 text-zinc-100"
@@ -72,9 +82,16 @@ export function ComponentDisplay({ component }: ComponentDisplayProps) {
             </div>
 
             {/* Code Editor */}
-            <div className="flex-1 min-w-0 bg-zinc-950">
+            <div className="flex-1 min-w-0 bg-zinc-950 relative">
+              <button
+                onClick={handleCopy}
+                title={copied ? "Copied!" : "Copy code"}
+                className="absolute top-3 right-3 z-10 p-1.5 rounded-md text-zinc-400 hover:text-zinc-100 hover:bg-zinc-700 transition-colors"
+              >
+                {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+              </button>
               <ScrollArea className="h-full">
-                <CodeSection html={activeFileContent || ""} />
+                <CodeSection html={activeEntry?.highlightedHtml || ""} />
               </ScrollArea>
             </div>
           </div>
