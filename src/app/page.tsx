@@ -34,7 +34,22 @@ export default async function Home(props: { searchParams: Promise<{ category?: s
         )}
       </div>
 
-      <footer className="mt-20 border-t py-10 text-center text-sm text-muted-foreground">
+      <footer className="mt-20 pt-0 pb-10 text-center text-sm text-muted-foreground">
+        <svg
+          width="100%"
+          height="24"
+          viewBox="0 0 1000 24"
+          preserveAspectRatio="none"
+          className="block text-border mb-6"
+          aria-hidden="true"
+        >
+          {/* Left diagonal leg */}
+          <line x1="0" y1="24" x2="72" y2="0" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+          {/* Horizontal top — thicker to compensate for anti-aliasing weight difference */}
+          <line x1="72" y1="0" x2="928" y2="0" stroke="currentColor" strokeWidth="1.8" vectorEffect="non-scaling-stroke" />
+          {/* Right diagonal leg */}
+          <line x1="928" y1="0" x2="1000" y2="24" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+        </svg>
         © {new Date().getFullYear()} shadcn/kit.
       </footer>
     </div>
