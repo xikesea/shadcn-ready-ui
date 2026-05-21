@@ -64,6 +64,7 @@ Applies to: `SheetTrigger`, `DialogTrigger`, `DropdownMenuTrigger`, `TooltipTrig
 - **No `Co-Authored-By: Claude` or any AI attribution** in commit messages — user preference, strictly enforced
 - Commit each task separately — do not group unrelated changes
 - Use conventional commit prefixes: `feat:`, `fix:`, `refactor:`, `chore:`
+- **Always ask the user before pushing to GitHub** — never run `git push` without explicit confirmation
 
 ## ESLint Config
 

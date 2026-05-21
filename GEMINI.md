@@ -82,6 +82,7 @@ const highlighter = await getHighlighter(); // cached singleton
 - No `Co-Authored-By` AI attribution in commit messages
 - One commit per task/feature — do not group unrelated changes
 - Conventional prefixes: `feat:`, `fix:`, `refactor:`, `chore:`
+- **Always ask the user before pushing to GitHub** — never run `git push` without explicit confirmation
 
 ## Known ESLint State
 
