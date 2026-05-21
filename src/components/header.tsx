@@ -5,7 +5,6 @@ import { useSearchParams } from "next/navigation";
 import { buttonVariants, Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "@/components/mode-toggle";
-import { ThemeColorPicker } from "@/components/theme-color-picker";
 import { Suspense, useState } from "react";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from "@/components/ui/sheet";
@@ -130,8 +129,7 @@ export function Header() {
           </Suspense>
         </div>
 
-        <div className="flex items-center justify-end gap-3 w-1/4">
-          <ThemeColorPicker />
+        <div className="flex items-center justify-end gap-2 w-1/4">
           <ModeToggle />
           <a 
             href="https://github.com/shadcn-ui/ui" 
