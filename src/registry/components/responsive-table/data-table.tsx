@@ -108,6 +108,21 @@ export function DataTable<TData, TValue>({
               <SelectItem value="Archived">Archived</SelectItem>
             </SelectContent>
           </Select>
+          {selectedRows.length > 0 && onBulkDeleteRequest && (
+            <Button
+              variant="destructive"
+              size="sm"
+              onClick={() => {
+                onBulkDeleteRequest(selectedRows.map((r) => r.original));
+              }}
+              className="ml-2 whitespace-nowrap"
+            >
+              <Trash2 className="w-4 h-4 mr-2" />
+              Delete ({selectedRows.length})
+            </Button>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
           <Select
             value={viewMode}
             onValueChange={(value: "table" | "grid" | "stacked" | null) => value && setViewMode(value)}
@@ -132,25 +147,10 @@ export function DataTable<TData, TValue>({
               </SelectItem>
             </SelectContent>
           </Select>
-          {selectedRows.length > 0 && onBulkDeleteRequest && (
-            <Button
-              variant="destructive"
-              size="sm"
-              onClick={() => {
-                onBulkDeleteRequest(selectedRows.map((r) => r.original));
-              }}
-              className="ml-2 whitespace-nowrap"
-            >
-              <Trash2 className="w-4 h-4 mr-2" />
-              Delete ({selectedRows.length})
-            </Button>
-          )}
-        </div>
-        <div className="flex items-center gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger
               render={
-                <Button variant="outline" className="ml-auto">
+                <Button variant="outline">
                   <Settings2 className="w-4 h-4 mr-2" />
                   Columns
                 </Button>
@@ -182,32 +182,39 @@ export function DataTable<TData, TValue>({
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => {
               const visibleCells = row.getVisibleCells();
+              const cell = (id: string) => visibleCells.find((c) => c.column.id === id);
+              const skipIds = new Set(["select", "image", "name", "actions"]);
+              const dataCells = visibleCells.filter((c) => !skipIds.has(c.column.id));
+              const product = row.original as { image?: string; name?: string };
               return (
-                <Card key={row.id} className={row.getIsSelected() ? "border-primary" : ""}>
+                <Card key={row.id} className={`overflow-hidden ${row.getIsSelected() ? "border-primary" : ""}`}>
+                  {product.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={product.image} alt={product.name ?? ""} className="w-full h-36 object-cover" />
+                  ) : (
+                    <div className="w-full h-36 bg-muted flex items-center justify-center text-muted-foreground text-xs">No image</div>
+                  )}
                   <CardHeader className="flex flex-row items-start justify-between pb-2 gap-4">
-                    <div className="font-semibold text-lg truncate">
-                      {flexRender(visibleCells[1]?.column.columnDef.cell, visibleCells[1]?.getContext())}
+                    <div className="font-semibold text-base truncate">
+                      {cell("name") && flexRender(cell("name")!.column.columnDef.cell, cell("name")!.getContext())}
                     </div>
                     <div onClick={(e) => e.stopPropagation()} className="-mt-1">
-                      {flexRender(
-                        visibleCells[visibleCells.length - 1]?.column.columnDef.cell,
-                        visibleCells[visibleCells.length - 1]?.getContext()
-                      )}
+                      {cell("actions") && flexRender(cell("actions")!.column.columnDef.cell, cell("actions")!.getContext())}
                     </div>
                   </CardHeader>
                   <CardContent>
                     <div className="flex flex-col gap-3 text-sm text-muted-foreground mt-2">
-                      {visibleCells.slice(2, -1).map((cell) => (
-                        <div key={cell.id} className="flex justify-between items-center border-b pb-2 last:border-0 last:pb-0">
-                          <span className="font-medium capitalize">{cell.column.id}</span>
-                          <span>{flexRender(cell.column.columnDef.cell, cell.getContext())}</span>
+                      {dataCells.map((c) => (
+                        <div key={c.id} className="flex justify-between items-center border-b pb-2 last:border-0 last:pb-0">
+                          <span className="font-medium capitalize">{c.column.id}</span>
+                          <span>{flexRender(c.column.columnDef.cell, c.getContext())}</span>
                         </div>
                       ))}
                     </div>
                   </CardContent>
                   <CardFooter className="pt-2 border-t mt-auto flex items-center justify-between bg-muted/20">
                     <span className="text-xs text-muted-foreground">Select to modify</span>
-                    {flexRender(visibleCells[0]?.column.columnDef.cell, visibleCells[0]?.getContext())}
+                    {cell("select") && flexRender(cell("select")!.column.columnDef.cell, cell("select")!.getContext())}
                   </CardFooter>
                 </Card>
               );
