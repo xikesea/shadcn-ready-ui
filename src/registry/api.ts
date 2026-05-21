@@ -32,7 +32,7 @@ export async function getComponentData(id: string) {
           lang: file.language,
           theme: "github-dark-dimmed",
         });
-      } catch (error) {
+      } catch {
         // If it's a typescript file and it fails, try tsx as a fallback
         if (file.language === "typescript" || file.language === "ts") {
            try {
@@ -40,7 +40,7 @@ export async function getComponentData(id: string) {
                lang: "tsx",
                theme: "github-dark-dimmed",
              });
-           } catch (innerError) {
+           } catch {
              // Still failed, use raw fallback
              highlightedHtml = "";
            }

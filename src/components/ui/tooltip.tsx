@@ -21,9 +21,11 @@ function Tooltip({ ...props }: TooltipPrimitive.Root.Props) {
   return <TooltipPrimitive.Root data-slot="tooltip" {...props} />
 }
 
-function TooltipTrigger({ ...props }: TooltipPrimitive.Trigger.Props) {
-  // Filter out asChild as Base UI uses the render prop instead
-  const { asChild, ...rest } = props as any
+type TooltipTriggerProps = TooltipPrimitive.Trigger.Props & { asChild?: boolean };
+
+function TooltipTrigger({ ...props }: TooltipTriggerProps) {
+  // asChild is filtered out — Base UI uses the render prop instead
+  const { asChild: _asChild, ...rest } = props;
   return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...rest} />
 }
 

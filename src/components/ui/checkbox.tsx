@@ -5,7 +5,11 @@ import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox"
 import { cn } from "@/lib/utils"
 import { CheckIcon } from "lucide-react"
 
-function Checkbox({ className, checked, ...props }: CheckboxPrimitive.Root.Props) {
+interface CheckboxProps extends Omit<CheckboxPrimitive.Root.Props, "checked"> {
+  checked?: boolean | "indeterminate";
+}
+
+function Checkbox({ className, checked, ...props }: CheckboxProps) {
   const isIndeterminate = checked === "indeterminate"
   const isChecked = isIndeterminate ? false : checked
 

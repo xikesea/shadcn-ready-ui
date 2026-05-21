@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
 import { FileCode, PlayCircle } from "lucide-react";
 
 interface FileWithHtml {
@@ -89,7 +88,7 @@ function CodeSection({ html }: { html: string }) {
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
-    setMounted(true);
+    React.startTransition(() => setMounted(true));
   }, []);
 
   if (!mounted) {

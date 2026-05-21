@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, type FieldPath } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -47,7 +47,7 @@ export function MultiStepForm() {
 
   const nextStep = async () => {
     const fields = getFieldsForStep(currentStep);
-    const isStepValid = await trigger(fields as any);
+    const isStepValid = await trigger(fields as FieldPath<FormValues>[]);
     if (isStepValid) {
       setCurrentStep((prev) => prev + 1);
     }

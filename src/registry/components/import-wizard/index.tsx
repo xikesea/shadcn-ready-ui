@@ -1,28 +1,23 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { 
-  FileUp, 
-  ArrowRight, 
-  CheckCircle2, 
-  AlertCircle, 
-  Table as TableIcon, 
-  Settings2, 
-  ChevronRight, 
-  Search,
+import {
+  FileUp,
+  ArrowRight,
+  CheckCircle2,
+  AlertCircle,
+  Settings2,
+  ChevronRight,
   ArrowLeft,
   Loader2,
-  Trash2,
   Info,
   HelpCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
@@ -45,19 +40,20 @@ const parseCsv = (csv: string): { headers: string[], rows: RawRow[] } => {
   return { headers, rows };
 };
 
-const validateValue = (value: any, field: ImportField): string | null => {
-  if (field.required && (!value || value.toString().trim() === "")) {
+const validateValue = (value: unknown, field: ImportField): string | null => {
+  if (field.required && (!value || String(value).trim() === "")) {
     return `${field.label} is required`;
   }
   if (!value) return null;
 
+  const str = String(value);
   switch (field.type) {
     case "email":
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? null : "Invalid email format";
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str) ? null : "Invalid email format";
     case "number":
-      return isNaN(Number(value)) ? "Must be a number" : null;
+      return isNaN(Number(str)) ? "Must be a number" : null;
     case "date":
-      return isNaN(Date.parse(value)) ? "Invalid date format" : null;
+      return isNaN(Date.parse(str)) ? "Invalid date format" : null;
     default:
       return null;
   }
@@ -192,7 +188,7 @@ export function BulkImportDemo() {
              </div>
              <h3 className="text-lg font-bold">Select a file to import</h3>
              <p className="text-muted-foreground max-w-sm mt-2 mb-8">
-               Upload your CSV or Excel file. We'll help you map the columns to our system fields.
+               Upload your CSV or Excel file. We&apos;ll help you map the columns to our system fields.
              </p>
              <div className="flex gap-4">
                 <Button size="lg" onClick={handleFileUpload} disabled={isUploading} className="min-w-[160px]">
@@ -241,7 +237,7 @@ export function BulkImportDemo() {
                            <div className="col-span-6">
                               <Select 
                                 value={mapping[field.key] || "unmapped"} 
-                                onValueChange={(val) => handleMappingChange(field.key, val)}
+                                onValueChange={(val) => val && handleMappingChange(field.key, val)}
                               >
                                  <SelectTrigger className={cn(
                                    "w-full",
@@ -338,7 +334,7 @@ export function BulkImportDemo() {
              </div>
              <h2 className="text-3xl font-extrabold tracking-tight">Import Complete!</h2>
              <p className="text-lg text-muted-foreground mt-2 max-w-md">
-               We've successfully processed and imported <b>{validRowsCount}</b> records into your database.
+               We&apos;ve successfully processed and imported <b>{validRowsCount}</b> records into your database.
              </p>
              <div className="mt-10 flex gap-4">
                 <Button size="lg" onClick={() => setStep(1)}>Import More Data</Button>
@@ -353,7 +349,7 @@ export function BulkImportDemo() {
         <div className="px-8 py-6 border-t bg-muted/10 flex justify-between items-center">
           <Button 
             variant="ghost" 
-            onClick={() => setStep((step - 1) as any)} 
+            onClick={() => setStep((step - 1) as 1 | 2 | 3)} 
             disabled={step === 1 || isUploading}
           >
             <ArrowLeft className="h-4 w-4 mr-2" />

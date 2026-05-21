@@ -37,7 +37,7 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  meta?: any;
+  meta?: Record<string, unknown>;
   onBulkDeleteRequest?: (rows: TData[]) => void;
 }
 
@@ -90,7 +90,7 @@ export function DataTable<TData, TValue>({
           />
           <Select
             value={statusFilter}
-            onValueChange={(value: any) => {
+            onValueChange={(value: string | null) => {
               if (value === "all") {
                 table.getColumn("status")?.setFilterValue(undefined);
               } else {

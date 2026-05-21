@@ -12,16 +12,13 @@ import {
   Save, 
   RotateCcw,
   UserPlus,
-  Trash2,
   Lock,
-  Settings,
   MoreVertical
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { 
   Tooltip, 

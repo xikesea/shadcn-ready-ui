@@ -131,7 +131,7 @@ export default function AdvancedTableDemo() {
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone. This will permanently delete the product
-              "{productToDelete?.name}".
+              {'"'}{productToDelete?.name}{'"'}.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -217,7 +217,7 @@ export default function AdvancedTableDemo() {
                 <Label htmlFor="status">Status</Label>
                 <Select
                   value={formData.status}
-                  onValueChange={(val: any) => val && setFormData({ ...formData, status: val })}
+                  onValueChange={(val: string | null) => val && setFormData({ ...formData, status: val as "Active" | "Draft" | "Archived" })}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select status" />
@@ -302,7 +302,7 @@ export default function AdvancedTableDemo() {
             <AlertTitle className="font-bold">2. Mutations with Server Actions</AlertTitle>
             <AlertDescription className="mt-2 text-muted-foreground">
               Replace the local <code className="bg-muted px-1 rounded">setData</code> state with Next.js Server Actions. 
-              When a user clicks "Delete" or submits the "Add Product" form, call an asynchronous action like <code className="bg-muted px-1 rounded">deleteProduct(id)</code>. 
+              When a user clicks &quot;Delete&quot; or submits the &quot;Add Product&quot; form, call an asynchronous action like <code className="bg-muted px-1 rounded">deleteProduct(id)</code>.
               Call <code className="bg-muted px-1 rounded">revalidatePath(&apos;/products&apos;)</code> to refresh the table instantly.
             </AlertDescription>
           </Alert>

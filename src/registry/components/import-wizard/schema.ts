@@ -11,7 +11,7 @@ export interface RawRow {
 }
 
 export interface MappedRow {
-  [key: string]: any;
+  [key: string]: string | number | boolean | null | undefined;
 }
 
 export interface ValidationError {

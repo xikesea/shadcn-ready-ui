@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { FileItem, FileType } from "./types";
+import { FileType } from "./types";
 import { mockFiles } from "./mock-data";
 import { 
   Folder, 
@@ -207,7 +207,7 @@ export default function FileManagerDemo() {
             </div>
             <div className="flex border rounded-md overflow-hidden bg-muted/50 p-0.5">
                <Button 
-                 variant={viewMode === "grid" ? "background" : "ghost"} 
+                 variant="ghost" 
                  size="icon" 
                  className={cn("h-7 w-7", viewMode === "grid" && "bg-background shadow-sm")}
                  onClick={() => setViewMode("grid")}
@@ -215,7 +215,7 @@ export default function FileManagerDemo() {
                  <LayoutGrid className="h-4 w-4" />
                </Button>
                <Button 
-                 variant={viewMode === "list" ? "background" : "ghost"} 
+                 variant="ghost" 
                  size="icon" 
                  className={cn("h-7 w-7", viewMode === "list" && "bg-background shadow-sm")}
                  onClick={() => setViewMode("list")}
