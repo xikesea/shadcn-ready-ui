@@ -46,7 +46,6 @@ export const metadata: Metadata = {
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { NavigationProvider } from "@/components/navigation-progress";
 
 export default function RootLayout({
   children,
@@ -70,11 +69,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <TooltipProvider>
-            <NavigationProvider>
-              <Header />
-              <main className="flex-1">{children}</main>
-              <Toaster />
-            </NavigationProvider>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Toaster />
           </TooltipProvider>
         </ThemeProvider>
       </body>

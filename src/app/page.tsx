@@ -3,35 +3,17 @@ import { getComponentData } from "@/registry/api";
 import { ComponentDisplay } from "@/components/component-display";
 import { registry } from "@/registry";
 
-const categoryMeta: Record<string, { title: string; description: string }> = {
-  table:        { title: "Data Tables",    description: "Advanced data tables with sorting, filtering, pagination, and CRUD dialogs." },
-  form:         { title: "Forms",          description: "Multi-step forms with validation, progress indicators, and Zod schemas." },
-  other:        { title: "Auth Forms",     description: "Sign in and sign up forms with social login options." },
-  import:       { title: "Import Wizard",  description: "4-step bulk data import wizard with CSV upload, column mapping, and validation." },
-  "file-manager": { title: "File Manager", description: "Professional file management system with folder navigation and grid/list views." },
-  acl:          { title: "ACL Tree",       description: "Granular access control with hierarchical tree structure and indeterminate checkboxes." },
+export const metadata: Metadata = {
+  title: "Data Tables",
+  description: "Advanced data tables with sorting, filtering, pagination, and CRUD dialogs.",
+  openGraph: { title: "Data Tables", description: "Advanced data tables with sorting, filtering, pagination, and CRUD dialogs." },
+  twitter:    { title: "Data Tables", description: "Advanced data tables with sorting, filtering, pagination, and CRUD dialogs." },
 };
 
-export async function generateMetadata(
-  props: { searchParams: Promise<{ category?: string }> }
-): Promise<Metadata> {
-  const { category = "table" } = await props.searchParams;
-  const meta = categoryMeta[category] ?? categoryMeta.table;
-  return {
-    title: meta.title,
-    description: meta.description,
-    openGraph: { title: meta.title, description: meta.description },
-    twitter:    { title: meta.title, description: meta.description },
-  };
-}
-
-export default async function Home(props: { searchParams: Promise<{ category?: string }> }) {
-  const searchParams = await props.searchParams;
-  const currentCategory = searchParams.category || "table";
-
+export default async function Home() {
   const filteredComponents = await Promise.all(
     registry
-      .filter((item) => item.category === currentCategory)
+      .filter((item) => item.category === "table")
       .map((item) => getComponentData(item.id))
   );
 
@@ -50,11 +32,6 @@ export default async function Home(props: { searchParams: Promise<{ category?: s
         {filteredComponents.map((comp) => (
           comp && <ComponentDisplay key={comp.id} component={comp} />
         ))}
-        {filteredComponents.length === 0 && (
-          <div className="text-center text-muted-foreground py-20">
-            No components found for this category.
-          </div>
-        )}
       </div>
 
       <footer className="mt-20 pt-0 pb-10 text-center text-sm text-muted-foreground">
@@ -66,11 +43,8 @@ export default async function Home(props: { searchParams: Promise<{ category?: s
           className="block text-border mb-6"
           aria-hidden="true"
         >
-          {/* Left diagonal leg */}
           <line x1="0" y1="24" x2="72" y2="0" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" />
-          {/* Horizontal top — thicker to compensate for anti-aliasing weight difference */}
           <line x1="72" y1="0" x2="928" y2="0" stroke="currentColor" strokeWidth="1.8" vectorEffect="non-scaling-stroke" />
-          {/* Right diagonal leg */}
           <line x1="928" y1="0" x2="1000" y2="24" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" />
         </svg>
         © {new Date().getFullYear()} Shadcn Ready UI.

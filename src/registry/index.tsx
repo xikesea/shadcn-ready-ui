@@ -37,7 +37,7 @@ export const registry: ComponentEntry[] = [
     id: "sign-in",
     title: "Sign In Form",
     description: "A beautifully designed Sign In form with social login options.",
-    category: "other",
+    category: "auth",
     demo: <SignInForm />,
     files: [
       { name: "index.tsx", language: "tsx", content: "" }
@@ -47,7 +47,7 @@ export const registry: ComponentEntry[] = [
     id: "sign-up",
     title: "Sign Up Form",
     description: "A complete Sign Up form with password confirmation.",
-    category: "other",
+    category: "auth",
     demo: <SignUpForm />,
     files: [
       { name: "index.tsx", language: "tsx", content: "" }

@@ -8,7 +8,7 @@ export type ComponentEntry = {
   id: string;
   title: string;
   description: string;
-  category: "table" | "form" | "dashboard" | "other" | "import" | "file-manager" | "acl";
+  category: "table" | "form" | "auth" | "import" | "file-manager" | "acl";
   files: RegistryFile[];
   demo: React.ReactNode;
 };

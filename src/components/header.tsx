@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { buttonVariants, Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "@/components/mode-toggle";
@@ -9,48 +9,42 @@ import { Suspense, useState } from "react";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
-import { useNavigation } from "@/components/navigation-progress";
 
 const categories = [
-  { id: "table", label: "Tables" },
-  { id: "form", label: "Forms" },
-  { id: "other", label: "Auth" },
-  { id: "import", label: "Import" },
-  { id: "file-manager", label: "File Manager" },
-  { id: "acl", label: "ACL Tree" },
+  { id: "table", label: "Tables",       href: "/" },
+  { id: "form",  label: "Forms",        href: "/form" },
+  { id: "auth",  label: "Auth",         href: "/auth" },
+  { id: "import", label: "Import",      href: "/import" },
+  { id: "file-manager", label: "File Manager", href: "/file-manager" },
+  { id: "acl",   label: "ACL Tree",     href: "/acl" },
 ];
 
 function HeaderNav() {
-  const searchParams = useSearchParams();
-  const currentCategory = searchParams.get("category") || "table";
-  const { navigate } = useNavigation();
+  const pathname = usePathname();
+  const currentId = pathname === "/" ? "table" : pathname.slice(1).split("/")[0];
 
   return (
     <nav className="hidden md:flex items-center justify-center gap-1 flex-1">
-      {categories.map((cat) => {
-        const href = cat.id === "table" ? "/" : `/?category=${cat.id}`;
-        return (
-          <button
-            key={cat.id}
-            onClick={() => navigate(href)}
-            className={cn(
-              "px-4 py-2 rounded-md text-sm font-medium transition-colors hover:bg-muted",
-              currentCategory === cat.id ? "bg-muted text-foreground" : "text-muted-foreground"
-            )}
-          >
-            {cat.label}
-          </button>
-        );
-      })}
+      {categories.map((cat) => (
+        <Link
+          key={cat.id}
+          href={cat.href}
+          className={cn(
+            "px-4 py-2 rounded-md text-sm font-medium transition-colors hover:bg-muted",
+            currentId === cat.id ? "bg-muted text-foreground" : "text-muted-foreground"
+          )}
+        >
+          {cat.label}
+        </Link>
+      ))}
     </nav>
   );
 }
 
 function MobileNav() {
-  const searchParams = useSearchParams();
-  const currentCategory = searchParams.get("category") || "table";
+  const pathname = usePathname();
+  const currentId = pathname === "/" ? "table" : pathname.slice(1).split("/")[0];
   const [open, setOpen] = useState(false);
-  const { navigate } = useNavigation();
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -76,24 +70,22 @@ function MobileNav() {
             <div className="px-2 mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground/70">
               Navigation
             </div>
-            {categories.map((cat) => {
-              const href = cat.id === "table" ? "/" : `/?category=${cat.id}`;
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => { navigate(href); setOpen(false); }}
-                  className={cn(
-                    "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 w-full text-left",
-                    currentCategory === cat.id
-                      ? "bg-primary/10 text-primary"
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                  )}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-current opacity-40" />
-                  {cat.label}
-                </button>
-              );
-            })}
+            {categories.map((cat) => (
+              <Link
+                key={cat.id}
+                href={cat.href}
+                onClick={() => setOpen(false)}
+                className={cn(
+                  "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200",
+                  currentId === cat.id
+                    ? "bg-primary/10 text-primary"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                )}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-current opacity-40" />
+                {cat.label}
+              </Link>
+            ))}
           </nav>
           
           <Separator className="my-6 mx-4 w-auto" />
