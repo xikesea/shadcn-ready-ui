@@ -2,6 +2,8 @@
 
 Production-ready UI components built on top of [shadcn/ui](https://ui.shadcn.com) and [Base UI](https://base-ui.com), designed for real-world applications.
 
+**Live demo:** [shadcn-ready-ui.vercel.app](https://shadcn-ready-ui.vercel.app)
+
 ## Overview
 
 Shadcn Ready UI is a component showcase providing highly customized, complex UI patterns that go beyond the standard shadcn/ui primitives. Each component is interactive, fully responsive, and ready to copy into your project.
@@ -49,7 +51,11 @@ npm run lint     # Run ESLint
 
 ```
 src/
-  app/                  # Next.js App Router pages and layout
+  app/
+    page.tsx            # Home route (Tables)
+    [category]/         # Dynamic routes: /form /auth /import /file-manager /acl
+    layout.tsx
+    globals.css
   components/           # Shared UI components (header, code viewer, etc.)
     ui/                 # Base shadcn/ui primitives
   registry/             # Component demos and registry
