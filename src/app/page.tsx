@@ -1,6 +1,29 @@
+import type { Metadata } from "next";
 import { getComponentData } from "@/registry/api";
 import { ComponentDisplay } from "@/components/component-display";
 import { registry } from "@/registry";
+
+const categoryMeta: Record<string, { title: string; description: string }> = {
+  table:        { title: "Data Tables",    description: "Advanced data tables with sorting, filtering, pagination, and CRUD dialogs." },
+  form:         { title: "Forms",          description: "Multi-step forms with validation, progress indicators, and Zod schemas." },
+  other:        { title: "Auth Forms",     description: "Sign in and sign up forms with social login options." },
+  import:       { title: "Import Wizard",  description: "4-step bulk data import wizard with CSV upload, column mapping, and validation." },
+  "file-manager": { title: "File Manager", description: "Professional file management system with folder navigation and grid/list views." },
+  acl:          { title: "ACL Tree",       description: "Granular access control with hierarchical tree structure and indeterminate checkboxes." },
+};
+
+export async function generateMetadata(
+  props: { searchParams: Promise<{ category?: string }> }
+): Promise<Metadata> {
+  const { category = "table" } = await props.searchParams;
+  const meta = categoryMeta[category] ?? categoryMeta.table;
+  return {
+    title: meta.title,
+    description: meta.description,
+    openGraph: { title: meta.title, description: meta.description },
+    twitter:    { title: meta.title, description: meta.description },
+  };
+}
 
 export default async function Home(props: { searchParams: Promise<{ category?: string }> }) {
   const searchParams = await props.searchParams;
