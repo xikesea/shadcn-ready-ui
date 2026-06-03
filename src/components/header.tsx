@@ -95,7 +95,7 @@ function MobileNav() {
                Resources
              </div>
              <a 
-              href="https://github.com/xikesea/shadcn-ui"
+              href="https://github.com/xikesea/shadcn-ready-ui"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -132,7 +132,7 @@ export function Header() {
         <div className="flex items-center justify-end gap-2 w-1/4">
           <ModeToggle />
           <a 
-            href="https://github.com/xikesea/shadcn-ui"
+            href="https://github.com/xikesea/shadcn-ready-ui"
             target="_blank"
             rel="noopener noreferrer"
             className={cn(buttonVariants({ variant: "outline", size: "icon" }))}
