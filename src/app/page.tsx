@@ -29,11 +29,11 @@ export default async function Home(props: { searchParams: Promise<{ category?: s
   const searchParams = await props.searchParams;
   const currentCategory = searchParams.category || "table";
 
-  const components = await Promise.all(
-    registry.map((item) => getComponentData(item.id))
+  const filteredComponents = await Promise.all(
+    registry
+      .filter((item) => item.category === currentCategory)
+      .map((item) => getComponentData(item.id))
   );
-
-  const filteredComponents = components.filter((comp) => comp?.category === currentCategory);
 
   return (
     <div className="container mx-auto py-10 px-4">
