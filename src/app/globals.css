@@ -4,6 +4,7 @@
   0% { transform: translateX(-150%); }
   100% { transform: translateX(250%); }
 }
+
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
