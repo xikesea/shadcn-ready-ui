@@ -1,3 +1,5 @@
+import type { CategoryId } from "@/lib/categories";
+
 export type RegistryFile = {
   name: string;
   content: string;
@@ -8,7 +10,7 @@ export type ComponentEntry = {
   id: string;
   title: string;
   description: string;
-  category: "table" | "form" | "auth" | "import" | "file-manager" | "acl";
+  category: CategoryId;
   files: RegistryFile[];
   demo: React.ReactNode;
 };

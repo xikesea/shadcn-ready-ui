@@ -9,23 +9,15 @@ import { Suspense, useState } from "react";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
-
-const categories = [
-  { id: "table", label: "Tables",       href: "/" },
-  { id: "form",  label: "Forms",        href: "/form" },
-  { id: "auth",  label: "Auth",         href: "/auth" },
-  { id: "import", label: "Import",      href: "/import" },
-  { id: "file-manager", label: "File Manager", href: "/file-manager" },
-  { id: "acl",   label: "ACL Tree",     href: "/acl" },
-];
+import { CATEGORIES } from "@/lib/categories";
 
 function HeaderNav() {
   const pathname = usePathname();
-  const currentId = pathname === "/" ? "table" : pathname.slice(1).split("/")[0];
+  const currentId = CATEGORIES.find(c => c.href === pathname)?.id ?? "table";
 
   return (
     <nav className="hidden md:flex items-center justify-center gap-1 flex-1">
-      {categories.map((cat) => (
+      {CATEGORIES.map((cat) => (
         <Link
           key={cat.id}
           href={cat.href}
@@ -43,7 +35,7 @@ function HeaderNav() {
 
 function MobileNav() {
   const pathname = usePathname();
-  const currentId = pathname === "/" ? "table" : pathname.slice(1).split("/")[0];
+  const currentId = CATEGORIES.find(c => c.href === pathname)?.id ?? "table";
   const [open, setOpen] = useState(false);
 
   return (
@@ -70,7 +62,7 @@ function MobileNav() {
             <div className="px-2 mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground/70">
               Navigation
             </div>
-            {categories.map((cat) => (
+            {CATEGORIES.map((cat) => (
               <Link
                 key={cat.id}
                 href={cat.href}

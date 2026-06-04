@@ -24,7 +24,13 @@ export async function getComponentData(id: string) {
   const filesWithContent = await Promise.all(
     component.files.map(async (file) => {
       const filePath = path.join(process.cwd(), "src/registry/components", id, file.name);
-      const content = fs.readFileSync(filePath, "utf8");
+      let content: string;
+      try {
+        content = fs.readFileSync(filePath, "utf8");
+      } catch {
+        console.warn(`[Warning] Could not read file for ${id}/${file.name}`);
+        content = `// Source file not found: ${file.name}`;
+      }
       
       let highlightedHtml = "";
       try {
