@@ -47,6 +47,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { NavigationProgress } from "@/components/navigation-progress";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function RootLayout({
   children,
@@ -74,6 +75,7 @@ export default function RootLayout({
             <Header />
             <main className="flex-1">{children}</main>
             <Toaster />
+            <Analytics />
           </TooltipProvider>
         </ThemeProvider>
       </body>
